@@ -1,0 +1,54 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Card",
+"language": "GDScript",
+"path": "res://scripts/Card.gd"
+}, {
+"base": "Reference",
+"class": "CardDef",
+"language": "GDScript",
+"path": "res://scripts/CardDef.gd"
+}, {
+"base": "Resource",
+"class": "EntityInBoard",
+"language": "GDScript",
+"path": "res://scripts/EntityInBoard.gd"
+}, {
+"base": "Resource",
+"class": "InstantEffect",
+"language": "GDScript",
+"path": "res://scripts/InstantEffect.gd"
+} ]
+_global_script_class_icons={
+"Card": "",
+"CardDef": "",
+"EntityInBoard": "",
+"InstantEffect": ""
+}
+
+[application]
+
+config/name="Race for Power"
+run/main_scene="res://scenes/SimpleBoard.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+cardDefs="*res://scripts/CardDefs.gd"
+game="*res://scripts/Game.gd"
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false

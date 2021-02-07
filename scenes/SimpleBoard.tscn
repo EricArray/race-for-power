@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/SimpleBoard.gd" type="Script" id=1]
+
+[node name="SimpleBoard" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hand" type="PanelContainer" parent="."]
+margin_right = 494.0
+margin_bottom = 32.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Hand"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 487.0
+margin_bottom = 25.0
+
+[node name="Label" type="Label" parent="Hand/VBoxContainer"]
+margin_right = 480.0
+margin_bottom = 14.0
+text = "Cards in Hand"
+
+[node name="Cards" type="VBoxContainer" parent="Hand/VBoxContainer"]
+margin_top = 18.0
+margin_right = 480.0
+margin_bottom = 18.0
+
+[node name="Entities" type="PanelContainer" parent="."]
+margin_left = 166.524
+margin_top = 216.903
+margin_right = 841.524
+margin_bottom = 573.903
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Entities"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 668.0
+margin_bottom = 350.0
+
+[node name="Entities" type="Label" parent="Entities/VBoxContainer"]
+margin_right = 661.0
+margin_bottom = 14.0
+text = "Entities"
+
+[node name="GridContainer" type="GridContainer" parent="Entities/VBoxContainer"]
+margin_top = 18.0
+margin_right = 661.0
+margin_bottom = 18.0
+columns = 6

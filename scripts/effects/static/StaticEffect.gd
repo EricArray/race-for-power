@@ -1,5 +1,5 @@
 class_name StaticEffect
-extends Resource
+extends Reference
 
 func build_description() -> String:
 	return "<INVALID STATIC EFFECT>"

@@ -1,5 +1,5 @@
 class_name EntityInBoard
-extends Resource
+extends Reference
 
 var def
 var life: int

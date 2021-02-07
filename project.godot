@@ -34,7 +34,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/effects/instant/DrawCards.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "EntityInBoard",
 "language": "GDScript",
 "path": "res://scripts/EntityInBoard.gd"
@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/effects/instant/GainTemporalPower.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "GameState",
 "language": "GDScript",
 "path": "res://scripts/game-states/GameState.gd"
@@ -84,7 +84,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/game-states/MainPhase.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "OnTarget",
 "language": "GDScript",
 "path": "res://scripts/effects/on_target/OnTarget.gd"
@@ -94,7 +94,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/game-states/PickTarget.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "PlayerState",
 "language": "GDScript",
 "path": "res://scripts/PlayerState.gd"
@@ -114,7 +114,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/game-states/RecoverPhase.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "StaticEffect",
 "language": "GDScript",
 "path": "res://scripts/effects/static/StaticEffect.gd"
@@ -124,12 +124,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/effects/instant/Target.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "Trap",
 "language": "GDScript",
 "path": "res://scripts/Trap.gd"
 }, {
-"base": "Resource",
+"base": "Reference",
 "class": "TurnPhase",
 "language": "GDScript",
 "path": "res://scripts/TurnPhase.gd"

@@ -1,5 +1,5 @@
 class_name Trap
-extends Resource
+extends Reference
 
 var card: Card
 

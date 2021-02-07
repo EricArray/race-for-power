@@ -1,5 +1,5 @@
 class_name TurnPhase
-extends Resource
+extends Reference
 
 const POWER_PHASE := 1
 const MAIN_PHASE := 2

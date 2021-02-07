@@ -1,5 +1,5 @@
 class_name InstantEffect
-extends Resource
+extends Reference
 
 func build_description() -> String:
 	return "<INVALID INSTANT EFFECT>"

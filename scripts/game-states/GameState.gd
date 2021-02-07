@@ -1,5 +1,5 @@
 class_name GameState
-extends Resource
+extends Reference
 
 func turn_phase():
 	return null

@@ -1,5 +1,5 @@
 class_name OnTarget
-extends Resource
+extends Reference
 
 func build_description() -> String:
 	return "<INVALID ON TARGET EFFECT>"

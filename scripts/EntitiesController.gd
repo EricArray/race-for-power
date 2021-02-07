@@ -46,12 +46,12 @@ func destroy_entity(entity: EntityInBoard):
 
 func exhaust(entity: EntityInBoard):
 	entity.exhausted = true
-	emit_signal("entity_updated", entity)
+	update_entity(entity)
 
 func damage(entity: EntityInBoard, damage_amount: int):
 	entity.life -= damage_amount
-	emit_signal("entity_updated", entity)
+	update_entity(entity)
 
 func heal(entity: EntityInBoard, heal_amount: int):
 	entity.life += heal_amount
-	emit_signal("entity_updated", entity)
+	update_entity(entity)

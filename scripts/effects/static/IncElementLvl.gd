@@ -15,9 +15,7 @@ func build_description() -> String:
 	return s
 	
 func apply():
-	game.player_state.element_lvl[element] += lvl
-	game.emit_signal("set_player_state")
+	game.player_state.inc_element_lvl(element, lvl)
 
 func undo():
-	game.player_state.element_lvl[element] -= lvl
-	game.emit_signal("set_player_state")
+	game.player_state.dec_element_lvl(element, lvl)

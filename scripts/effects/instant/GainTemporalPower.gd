@@ -10,5 +10,4 @@ func build_description() -> String:
 	return "gain %s power until the end of your turn" % temporal_power
 
 func resolve():
-	game.player_state.temporal_power += temporal_power
-	game.emit_signal("set_player_state")
+	game.player_state.gain_temporal_power(temporal_power)

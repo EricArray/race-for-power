@@ -9,7 +9,7 @@ onready var attackButton := $Attack
 var entity: EntityInBoard
 
 func _ready():
-	game.connect("update_entity", self, "_on_Game_update_entity")
+	entities_controller.connect("entity_updated", self, "_on_Game_update_entity")
 	update()
 	
 	game.connect("set_state", self, "_on_Game_set_state")

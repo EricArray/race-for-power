@@ -6,3 +6,6 @@ func build_description() -> String:
 
 func resolve():
 	print("<INVALID INSTANT EFFECT>")
+
+func resolve_with_target(target: EntityInBoard):
+	resolve()

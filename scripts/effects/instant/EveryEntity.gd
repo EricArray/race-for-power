@@ -10,5 +10,5 @@ func build_description() -> String:
 	return on_target.build_description() + " every entity"
 
 func resolve():
-	for entity in game.entities_in_board.duplicate():
+	for entity in entities_controller.entities.duplicate():
 		on_target.on_target(entity)

@@ -44,13 +44,16 @@ func build_description() -> String:
 func resolve():
 	match card_type:
 		CardType.ENTITY:
-			game.create_entity(self)
+			entities_controller.create_entity(self)
 		
 		CardType.INSTANT:
 			resolve_on_play()
 
 func resolve_on_play():
 	on_play.resolve()
-
+	
+func resolve_on_play_with_target(target: EntityInBoard):
+	on_play.resolve_with_target(target)
+	
 func resolve_on_destroyed():
 	on_destroyed.resolve()

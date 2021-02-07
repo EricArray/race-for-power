@@ -10,5 +10,4 @@ func build_description() -> String:
 	return "deal %s damage to target entity" % damage
 
 func on_target(target: EntityInBoard):
-	target.life -= damage
-	game.update_entity(target)
+	entities_controller.damage(target, damage)

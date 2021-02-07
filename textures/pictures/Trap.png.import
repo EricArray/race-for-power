@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Lower Abyssal.png-33dbeb2782ac8e5581b949cb1e64e4b9.stex"
+path="res://.import/Trap.png-947342786d31e0551d7b2a6907dc883e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/pictures/Lower Abyssal.png"
-dest_files=[ "res://.import/Lower Abyssal.png-33dbeb2782ac8e5581b949cb1e64e4b9.stex" ]
+source_file="res://textures/pictures/Trap.png"
+dest_files=[ "res://.import/Trap.png-947342786d31e0551d7b2a6907dc883e.stex" ]
 
 [params]
 

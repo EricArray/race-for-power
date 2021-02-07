@@ -10,5 +10,4 @@ func build_description() -> String:
 	return "gain %s power" % power
 
 func resolve():
-	game.player_state.power += power
-	game.emit_signal("set_player_state")
+	game.player_state.gain_power(power)

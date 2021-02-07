@@ -125,6 +125,11 @@ _global_script_classes=[ {
 "path": "res://scripts/effects/instant/Target.gd"
 }, {
 "base": "Resource",
+"class": "Trap",
+"language": "GDScript",
+"path": "res://scripts/Trap.gd"
+}, {
+"base": "Resource",
 "class": "TurnPhase",
 "language": "GDScript",
 "path": "res://scripts/TurnPhase.gd"
@@ -153,6 +158,7 @@ _global_script_class_icons={
 "RecoverPhase": "",
 "StaticEffect": "",
 "Target": "",
+"Trap": "",
 "TurnPhase": ""
 }
 
@@ -164,8 +170,16 @@ config/icon="res://icon.png"
 
 [autoload]
 
+console="*res://scripts/Console.gd"
 cardDefs="*res://scripts/CardDefs.gd"
+cards_controller="*res://scripts/CardsController.gd"
+traps_controller="*res://scripts/TrapsController.gd"
+entities_controller="*res://scripts/EntitiesController.gd"
 game="*res://scripts/Game.gd"
+
+[gui]
+
+theme/custom="res://gui/new_theme.tres"
 
 [rendering]
 

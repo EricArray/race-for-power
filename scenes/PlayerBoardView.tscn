@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://scenes/PlayerBoard.gd" type="Script" id=1]
+[ext_resource path="res://scenes/PlayerBoardView.gd" type="Script" id=1]
 
-[node name="PlayerBoard" type="PanelContainer"]
+[node name="PlayerBoardView" type="PanelContainer"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -337.0

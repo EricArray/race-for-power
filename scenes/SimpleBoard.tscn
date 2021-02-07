@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/SimpleBoard.gd" type="Script" id=1]
 [ext_resource path="res://scenes/CardVIew.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/PlayerStateView.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/new_theme.tres" type="Theme" id=6]
-[ext_resource path="res://scenes/PlayerBoard.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/PlayerBoardView.tscn" type="PackedScene" id=7]
 
 [node name="SimpleBoard" type="Control"]
 anchor_right = 1.0
@@ -45,99 +46,9 @@ margin_bottom = 64.0
 rect_min_size = Vector2( 0, 40 )
 text = "Next phase"
 
-[node name="PlayerState" type="PanelContainer" parent="."]
-margin_right = 290.0
-margin_bottom = 110.0
-rect_min_size = Vector2( 290, 0 )
-size_flags_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="PlayerStateView" parent="." instance=ExtResource( 3 )]
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PlayerState"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 283.0
-margin_bottom = 127.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PlayerState/VBoxContainer2"]
-margin_right = 276.0
-margin_bottom = 20.0
-alignment = 1
-
-[node name="Label" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer"]
-margin_left = 100.0
-margin_right = 154.0
-margin_bottom = 20.0
-text = "[ Power:"
-
-[node name="Power" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer"]
-margin_left = 158.0
-margin_right = 166.0
-margin_bottom = 20.0
-custom_colors/font_color = Color( 1, 1, 0, 1 )
-text = "0"
-
-[node name="Label2" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer"]
-margin_left = 170.0
-margin_right = 175.0
-margin_bottom = 20.0
-text = "]"
-
-[node name="PlayerElements" type="HBoxContainer" parent="PlayerState/VBoxContainer2"]
-margin_top = 24.0
-margin_right = 276.0
-margin_bottom = 44.0
-rect_min_size = Vector2( 0, 20 )
-alignment = 1
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="PlayerState/VBoxContainer2"]
-margin_top = 48.0
-margin_right = 276.0
-margin_bottom = 68.0
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="PlayerState/VBoxContainer2/HBoxContainer4"]
-margin_right = 177.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer2"]
-margin_right = 95.0
-margin_bottom = 20.0
-text = "Cards in deck:"
-
-[node name="CardsInDeck" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer2"]
-margin_left = 99.0
-margin_right = 107.0
-margin_bottom = 20.0
-text = "0"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="PlayerState/VBoxContainer2/HBoxContainer4"]
-margin_left = 181.0
-margin_right = 276.0
-margin_bottom = 20.0
-
-[node name="Label" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer3"]
-margin_right = 83.0
-margin_bottom = 20.0
-text = "Discard Pile:"
-
-[node name="DiscardPile" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer3"]
-margin_left = 87.0
-margin_right = 95.0
-margin_bottom = 20.0
-text = "0"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerState/VBoxContainer2"]
-margin_top = 72.0
-margin_right = 276.0
-margin_bottom = 72.0
-size_flags_vertical = 0
-
-[node name="CardsInHand" type="VBoxContainer" parent="PlayerState/VBoxContainer2/VBoxContainer"]
-margin_right = 276.0
-
-[node name="PlayerBoard" parent="." instance=ExtResource( 7 )]
+[node name="PlayerBoardView" parent="." instance=ExtResource( 7 )]
 
 [node name="Log" type="PanelContainer" parent="."]
 visible = false
@@ -163,4 +74,3 @@ size_flags_horizontal = 3
 
 [node name="CardVIew" parent="." instance=ExtResource( 2 )]
 [connection signal="pressed" from="TurnPhase/VBoxContainer/NextPhase" to="." method="_on_NextPhase_pressed"]
-[connection signal="sort_children" from="PlayerState" to="." method="_on_Hand_sort_children"]

@@ -10,8 +10,8 @@ onready var card_view_attack = $VBoxContainer/EntityStats/Attack
 onready var card_view_life = $VBoxContainer/EntityStats/Life
 
 func _ready():
-	cards_controller.connect("zoom_card", self, "_on_zoom_card")
-	cards_controller.connect("hide_zoom_card", self, "_on_hide_zoom_card")
+	zoom_controller.connect("zoom_card", self, "_on_zoom_card")
+	zoom_controller.connect("hide_zoom_card", self, "_on_hide_zoom_card")
 
 func _on_zoom_card(control: Control, def: CardDef):
 	visible = true

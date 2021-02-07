@@ -50,8 +50,8 @@ func _on_Game_set_hand():
 		card_button.hint_tooltip = card.def.build_description()
 		card_button.connect("pressed", self, "_on_play_card", [card])
 		card_button.connect("gui_input", self, "_on_card_in_hand_gui_input", [card])
-		card_button.connect("mouse_entered", cards_controller, "zoom_card", [card_button, card.def])
-		card_button.connect("mouse_exited", cards_controller, "hide_zoom_card")
+		card_button.connect("mouse_entered", zoom_controller, "zoom_card", [card_button, card.def])
+		card_button.connect("mouse_exited", zoom_controller, "hide_zoom_card")
 
 		var text := RichTextLabel.new()
 		text.anchor_right = 1
@@ -75,14 +75,14 @@ func _on_Game_set_hand():
 
 func _on_play_card(card: Card):
 	if game.state.can_play_cards_in_hand():
-		cards_controller.hide_zoom_card()
+		zoom_controller.hide_zoom_card()
 		game.play_card_in_hand(card)
 
 func _on_card_in_hand_gui_input(event: InputEvent, card: Card):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_RIGHT and event.pressed == false:
 			if  game.state.can_play_cards_in_hand():
-				cards_controller.hide_zoom_card()
+				zoom_controller.hide_zoom_card()
 				game.set_trap(card)
 
 func _on_Game_set_deck():

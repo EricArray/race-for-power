@@ -176,6 +176,7 @@ cards_controller="*res://scripts/CardsController.gd"
 traps_controller="*res://scripts/TrapsController.gd"
 entities_controller="*res://scripts/EntitiesController.gd"
 game="*res://scripts/Game.gd"
+zoom_controller="*res://scripts/ZoomController.gd"
 
 [gui]
 

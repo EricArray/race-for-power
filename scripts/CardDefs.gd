@@ -32,7 +32,7 @@ func load_warlock() -> CardDef:
 	def.type = "Human"
 	def.description = "A lesser magician with devotion to fire."
 	def.power_cost = 2
-	def.life = 2
+	def.life = 3
 	def.attack = 1
 	def.static_effect = IncElementLvl.new("fire", 1)
 	return def

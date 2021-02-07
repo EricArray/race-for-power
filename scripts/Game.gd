@@ -66,17 +66,22 @@ func pick_target(target: EntityInBoard):
 
 func attack(attacker: EntityInBoard):
 	# keep triggering traps until the attacker is dead, or no more traps
-	while traps_controller.check_trigger_traps(player_state, attacker):
+	var callback := {
+		target = self,
+		method = "attack",
+		binds = [attacker]
+	}
+	if not traps_controller.check_trigger_traps(player_state, attacker, callback):
 		if attacker.life <= 0 or attacker.exhausted:
 			return
-	
-	entities_controller.exhaust(attacker)
-	
-	if attacker.def.attack:
-		player_state.gain_power(1)
-		console.log(attacker.def.card_name + " attacked; 1 power stolen")
-	else:
-		console.log(attacker.def.card_name + " attacked; couldn't steal power")
+		
+		entities_controller.exhaust(attacker)
+		
+		if attacker.def.attack:
+			player_state.gain_power(1)
+			console.log(attacker.def.card_name + " attacked; 1 power stolen")
+		else:
+			console.log(attacker.def.card_name + " attacked; couldn't steal power")
 
 func go_to_next_phase():
 	set_state(get_next_phase_state())

@@ -52,8 +52,8 @@ func resolve():
 func resolve_on_play():
 	on_play.resolve()
 	
-func resolve_on_play_with_target(target: EntityInBoard):
-	on_play.resolve_with_target(target)
+func resolve_on_play_with_target(target: EntityInBoard, callback: Dictionary):
+	on_play.resolve_with_target(target, callback)
 	
 func resolve_on_destroyed():
 	on_destroyed.resolve()

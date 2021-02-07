@@ -3,6 +3,8 @@ extends Node
 signal deck_updated()
 signal hand_updated()
 signal discard_pile_updated()
+signal zoom_card(control, card)
+signal hide_zoom_card()
 
 var cards_in_deck: Array = []
 var cards_in_hand: Array = []
@@ -70,3 +72,8 @@ func discard_card(card: Card):
 	discard_pile.append(card)
 	emit_signal("discard_pile_updated")
 	
+func zoom_card(control: Control, def: CardDef):
+	emit_signal("zoom_card", control, def)
+
+func hide_zoom_card():
+	emit_signal("hide_zoom_card")

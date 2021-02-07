@@ -1,11 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/SimpleBoard.gd" type="Script" id=1]
-[ext_resource path="res://textures/pictures/Warlock.png" type="Texture" id=2]
-[ext_resource path="res://gui/fonts/bold.tres" type="DynamicFont" id=3]
-[ext_resource path="res://gui/fonts/regular.tres" type="DynamicFont" id=4]
-[ext_resource path="res://gui/fonts/italics.tres" type="DynamicFont" id=5]
+[ext_resource path="res://scenes/CardVIew.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/new_theme.tres" type="Theme" id=6]
+[ext_resource path="res://scenes/PlayerBoard.tscn" type="PackedScene" id=7]
 
 [node name="SimpleBoard" type="Control"]
 anchor_right = 1.0
@@ -18,92 +16,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Hand" type="PanelContainer" parent="."]
-margin_right = 290.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 290, 0 )
-size_flags_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Hand"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 283.0
-margin_bottom = 31.0
-size_flags_vertical = 0
-
-[node name="Label" type="Label" parent="Hand/VBoxContainer"]
-margin_right = 276.0
-margin_bottom = 20.0
-text = "Cards in Hand"
-align = 1
-
-[node name="Cards" type="VBoxContainer" parent="Hand/VBoxContainer"]
-margin_top = 24.0
-margin_right = 276.0
-margin_bottom = 24.0
-
-[node name="PlayerState" type="PanelContainer" parent="."]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -210.0
-margin_bottom = 72.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerState"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 203.0
-margin_bottom = 95.0
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="PlayerState/VBoxContainer"]
-margin_right = 196.0
-margin_bottom = 20.0
-
-[node name="Label" type="Label" parent="PlayerState/VBoxContainer/HBoxContainer2"]
-margin_right = 95.0
-margin_bottom = 20.0
-text = "Cards in deck:"
-
-[node name="CardsInDeck" type="Label" parent="PlayerState/VBoxContainer/HBoxContainer2"]
-margin_left = 99.0
-margin_right = 107.0
-margin_bottom = 20.0
-text = "0"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="PlayerState/VBoxContainer"]
-margin_top = 24.0
-margin_right = 196.0
-margin_bottom = 44.0
-
-[node name="Label" type="Label" parent="PlayerState/VBoxContainer/HBoxContainer3"]
-margin_right = 83.0
-margin_bottom = 20.0
-text = "Discard Pile:"
-
-[node name="DiscardPile" type="Label" parent="PlayerState/VBoxContainer/HBoxContainer3"]
-margin_left = 87.0
-margin_right = 95.0
-margin_bottom = 20.0
-text = "0"
-
-[node name="NextPhase" type="Button" parent="PlayerState/VBoxContainer"]
-margin_top = 48.0
-margin_right = 196.0
-margin_bottom = 88.0
-rect_min_size = Vector2( 0, 40 )
-text = "Next phase"
-
 [node name="TurnPhase" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -105.0
 margin_right = 105.0
-margin_bottom = 28.0
+margin_bottom = 82.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,7 +30,7 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 203.0
-margin_bottom = 55.0
+margin_bottom = 75.0
 
 [node name="TurnPhase" type="Label" parent="TurnPhase/VBoxContainer"]
 margin_right = 196.0
@@ -120,100 +38,109 @@ margin_bottom = 20.0
 text = "Main Phase"
 align = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TurnPhase/VBoxContainer"]
+[node name="NextPhase" type="Button" parent="TurnPhase/VBoxContainer"]
 margin_top = 24.0
 margin_right = 196.0
-margin_bottom = 44.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 40 )
+text = "Next phase"
+
+[node name="PlayerState" type="PanelContainer" parent="."]
+margin_right = 290.0
+margin_bottom = 110.0
+rect_min_size = Vector2( 290, 0 )
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PlayerState"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 283.0
+margin_bottom = 127.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerState/VBoxContainer2"]
+margin_right = 276.0
+margin_bottom = 20.0
 alignment = 1
 
-[node name="Label" type="Label" parent="TurnPhase/VBoxContainer/HBoxContainer"]
-margin_left = 60.0
-margin_right = 114.0
+[node name="Label" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer"]
+margin_left = 100.0
+margin_right = 154.0
 margin_bottom = 20.0
 text = "[ Power:"
 
-[node name="Power" type="Label" parent="TurnPhase/VBoxContainer/HBoxContainer"]
-margin_left = 118.0
-margin_right = 126.0
+[node name="Power" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer"]
+margin_left = 158.0
+margin_right = 166.0
 margin_bottom = 20.0
 custom_colors/font_color = Color( 1, 1, 0, 1 )
 text = "0"
 
-[node name="Label2" type="Label" parent="TurnPhase/VBoxContainer/HBoxContainer"]
-margin_left = 130.0
-margin_right = 135.0
+[node name="Label2" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer"]
+margin_left = 170.0
+margin_right = 175.0
 margin_bottom = 20.0
 text = "]"
 
-[node name="PlayerElements" type="HBoxContainer" parent="TurnPhase/VBoxContainer"]
-margin_top = 48.0
-margin_right = 196.0
-margin_bottom = 48.0
+[node name="PlayerElements" type="HBoxContainer" parent="PlayerState/VBoxContainer2"]
+margin_top = 24.0
+margin_right = 276.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 20 )
 alignment = 1
 
-[node name="Entities" type="PanelContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -281.0
-margin_top = -191.0
-margin_right = 281.0
+[node name="HBoxContainer4" type="HBoxContainer" parent="PlayerState/VBoxContainer2"]
+margin_top = 48.0
+margin_right = 276.0
+margin_bottom = 68.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PlayerState/VBoxContainer2/HBoxContainer4"]
+margin_right = 177.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer2"]
+margin_right = 95.0
+margin_bottom = 20.0
+text = "Cards in deck:"
+
+[node name="CardsInDeck" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer2"]
+margin_left = 99.0
+margin_right = 107.0
+margin_bottom = 20.0
+text = "0"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="PlayerState/VBoxContainer2/HBoxContainer4"]
+margin_left = 181.0
+margin_right = 276.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer3"]
+margin_right = 83.0
+margin_bottom = 20.0
+text = "Discard Pile:"
+
+[node name="DiscardPile" type="Label" parent="PlayerState/VBoxContainer2/HBoxContainer4/HBoxContainer3"]
+margin_left = 87.0
+margin_right = 95.0
+margin_bottom = 20.0
+text = "0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PlayerState/VBoxContainer2"]
+margin_top = 72.0
+margin_right = 276.0
 margin_bottom = 72.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Entities"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 555.0
-margin_bottom = 256.0
+[node name="CardsInHand" type="VBoxContainer" parent="PlayerState/VBoxContainer2/VBoxContainer"]
+margin_right = 276.0
 
-[node name="Entities" type="Label" parent="Entities/VBoxContainer"]
-margin_right = 548.0
-margin_bottom = 20.0
-text = "Entities"
-align = 1
-
-[node name="GridContainer" type="GridContainer" parent="Entities/VBoxContainer"]
-margin_top = 24.0
-margin_right = 548.0
-margin_bottom = 24.0
-columns = 4
-
-[node name="SetTraps" type="PanelContainer" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -281.0
-margin_top = 123.0
-margin_right = 281.0
-margin_bottom = 280.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="SetTraps"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 555.0
-margin_bottom = 150.0
-
-[node name="Label" type="Label" parent="SetTraps/VBoxContainer"]
-margin_right = 548.0
-margin_bottom = 20.0
-text = "Traps"
-align = 1
-
-[node name="GridContainer" type="GridContainer" parent="SetTraps/VBoxContainer"]
-margin_top = 24.0
-margin_right = 548.0
-margin_bottom = 24.0
-columns = 4
+[node name="PlayerBoard" parent="." instance=ExtResource( 7 )]
 
 [node name="Log" type="PanelContainer" parent="."]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -226.0
@@ -234,96 +161,6 @@ scroll_horizontal_enabled = false
 margin_right = 209.0
 size_flags_horizontal = 3
 
-[node name="CardVIew" type="PanelContainer" parent="."]
-visible = false
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_top = -125.0
-margin_right = 200.0
-margin_bottom = 125.0
-rect_min_size = Vector2( 200, 0 )
-size_flags_vertical = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CardVIew"]
-margin_left = 7.0
-margin_top = 7.0
-margin_right = 193.0
-margin_bottom = 243.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CardVIew/VBoxContainer"]
-margin_right = 186.0
-margin_bottom = 20.0
-
-[node name="PowerCost" type="Label" parent="CardVIew/VBoxContainer/HBoxContainer"]
-margin_right = 8.0
-margin_bottom = 20.0
-text = "3"
-align = 1
-
-[node name="CardName" type="Label" parent="CardVIew/VBoxContainer/HBoxContainer"]
-margin_left = 12.0
-margin_right = 182.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-text = "Lesser Abyssal"
-align = 1
-
-[node name="ElementLvlContainer" type="HBoxContainer" parent="CardVIew/VBoxContainer/HBoxContainer"]
-margin_left = 186.0
-margin_right = 186.0
-margin_bottom = 20.0
-
-[node name="Picture" type="TextureRect" parent="CardVIew/VBoxContainer"]
-margin_top = 24.0
-margin_right = 186.0
-margin_bottom = 124.0
-rect_min_size = Vector2( 0, 100 )
-texture = ExtResource( 2 )
-stretch_mode = 6
-
-[node name="Description" type="RichTextLabel" parent="CardVIew/VBoxContainer"]
-margin_top = 128.0
-margin_right = 186.0
-margin_bottom = 212.0
-size_flags_vertical = 3
-custom_fonts/italics_font = ExtResource( 5 )
-custom_fonts/bold_font = ExtResource( 3 )
-custom_fonts/normal_font = ExtResource( 4 )
-bbcode_enabled = true
-bbcode_text = "[b]On Play:[/b] gain 3 power.
-
-[i]lorem ipsum[/i]"
-text = "On Play: gain 3 power.
-
-lorem ipsum"
-
-[node name="EntityStats" type="HBoxContainer" parent="CardVIew/VBoxContainer"]
-margin_top = 216.0
-margin_right = 186.0
-margin_bottom = 236.0
-
-[node name="Attack" type="Label" parent="CardVIew/VBoxContainer/EntityStats"]
-margin_right = 57.0
-margin_bottom = 20.0
-text = "Attack: 2"
-align = 1
-
-[node name="Filler" type="Label" parent="CardVIew/VBoxContainer/EntityStats"]
-margin_left = 61.0
-margin_right = 142.0
-margin_bottom = 20.0
-size_flags_horizontal = 3
-align = 1
-
-[node name="Life" type="Label" parent="CardVIew/VBoxContainer/EntityStats"]
-margin_left = 146.0
-margin_right = 186.0
-margin_bottom = 20.0
-text = "Life: 2"
-align = 1
-[connection signal="sort_children" from="Hand" to="." method="_on_Hand_sort_children"]
-[connection signal="pressed" from="PlayerState/VBoxContainer/NextPhase" to="." method="_on_NextPhase_pressed"]
-[connection signal="sort_children" from="CardVIew" to="." method="_on_Hand_sort_children"]
+[node name="CardVIew" parent="." instance=ExtResource( 2 )]
+[connection signal="pressed" from="TurnPhase/VBoxContainer/NextPhase" to="." method="_on_NextPhase_pressed"]
+[connection signal="sort_children" from="PlayerState" to="." method="_on_Hand_sort_children"]

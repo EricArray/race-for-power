@@ -10,4 +10,4 @@ func build_description() -> String:
 	return "heal %s damage from" % heal
 
 func on_target(target: EntityInBoard):
-	entities_controller.heal(target, heal)
+	game.entities_controller.heal(target, heal)

@@ -44,7 +44,7 @@ func build_description() -> String:
 func resolve():
 	match card_type:
 		CardType.ENTITY:
-			entities_controller.create_entity(self)
+			game.entities_controller.create_entity(Players.HARDCODED_P1_BEFORE_MULTIPLAYER, self)
 		
 		CardType.INSTANT:
 			resolve_on_play()

@@ -6,6 +6,8 @@ onready var discard_pile := $VBoxContainer2/HBoxContainer4/HBoxContainer3/Discar
 onready var player_power := $VBoxContainer2/HBoxContainer/Power
 onready var player_elements := $VBoxContainer2/PlayerElements
 
+export(Players.PlayerId) var player_id: int
+
 var element_textures := {
 	fire = preload("res://textures/icons/element-icon-fire.png"),
 	air = preload("res://textures/icons/element-icon-air.png"),
@@ -17,25 +19,25 @@ func _ready():
 	game.connect("set_state", self, "_on_Game_set_state")
 	_on_Game_set_state()
 
-	cards_controller.connect("hand_updated", self, "_on_Game_set_hand")
+	game.cards(player_id).connect("hand_updated", self, "_on_Game_set_hand")
 	_on_Game_set_hand()
 
-	cards_controller.connect("deck_updated", self, "_on_Game_set_deck")
+	game.cards(player_id).connect("deck_updated", self, "_on_Game_set_deck")
 	_on_Game_set_deck()
 
-	cards_controller.connect("discard_pile_updated", self, "_on_Game_set_discard_pile")
+	game.cards(player_id).connect("discard_pile_updated", self, "_on_Game_set_discard_pile")
 	_on_Game_set_discard_pile()
 
-	game.player_state.connect("updated", self, "_on_Game_player_state_updated")
+	game.player(player_id).connect("updated", self, "_on_Game_player_state_updated")
 	_on_Game_player_state_updated()
 
 func can_play_card(card: Card):
-	return game.player_state.can_play(card.def) and game.state.can_play_cards_in_hand()
+	return game.player(player_id).can_play(card.def) and game.state.can_play_cards_in_hand()
 
 func _on_Game_set_state():
 	for i in cards_container.get_child_count():
 		var card_button = cards_container.get_child(i)
-		var card = cards_controller.cards_in_hand[i]
+		var card = game.cards_in_hand(player_id)[i]
 		card_button.disabled = not can_play_card(card)
 
 func _on_Game_set_hand():
@@ -43,7 +45,7 @@ func _on_Game_set_hand():
 		cards_container.remove_child(child)
 		child.queue_free()
 
-	for card in cards_controller.cards_in_hand:
+	for card in game.cards_in_hand(player_id):
 		var card_button := Button.new()
 		card_button.align = Button.ALIGN_LEFT
 		card_button.disabled = not can_play_card(card)
@@ -76,35 +78,35 @@ func _on_Game_set_hand():
 func _on_play_card(card: Card):
 	if game.state.can_play_cards_in_hand():
 		zoom_controller.hide_zoom_card()
-		game.play_card_in_hand(card)
+		game.play_card_in_hand(player_id, card)
 
 func _on_card_in_hand_gui_input(event: InputEvent, card: Card):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_RIGHT and event.pressed == false:
 			if  game.state.can_play_cards_in_hand():
 				zoom_controller.hide_zoom_card()
-				game.set_trap(card)
+				game.set_trap(player_id, card)
 
 func _on_Game_set_deck():
-	cards_in_deck.text = str(cards_controller.cards_in_deck.size())
+	cards_in_deck.text = str(game.cards_in_deck(player_id).size())
 
 func _on_Game_set_discard_pile():
-	discard_pile.text = str(cards_controller.discard_pile.size())
+	discard_pile.text = str(game.discard_pile(player_id).size())
 
 func _on_Game_player_state_updated():
-	player_power.text = str(game.player_state.power + game.player_state.temporal_power)
+	player_power.text = str(game.player(player_id).total_power())
 
 	for child in player_elements.get_children():
 		child.queue_free()
 		player_elements.remove_child(child)
 
 	for element in ["fire", "air", "water", "earth"]:
-		for i in range(game.player_state.element_lvl[element]):
+		for i in range(game.player(player_id).total_element_lvl(element)):
 			var tex = TextureRect.new()
 			tex.texture = element_textures[element]
 			player_elements.add_child(tex)
 
 	for i in cards_container.get_child_count():
 		var card_button = cards_container.get_child(i)
-		var card = cards_controller.cards_in_hand[i]
+		var card = game.cards_in_hand(player_id)[i]
 		card_button.disabled = not can_play_card(card)

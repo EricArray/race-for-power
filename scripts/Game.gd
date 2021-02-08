@@ -7,7 +7,18 @@ var state: GameState
 
 var turn_phase: int
 
-var player_state: PlayerState
+var player_states := [
+	PlayerState.new(),
+	PlayerState.new(),
+]
+
+var cards_controllers := [
+	CardsController.new(),
+	CardsController.new(),
+]
+
+var entities_controller := EntitiesController.new()
+var traps_controller := TrapsController.new()
 
 func _ready():
 	reset()
@@ -18,14 +29,19 @@ func reset():
 	state = MainPhase.new()
 	turn_phase = TurnPhase.MAIN_PHASE
 	
-	player_state = PlayerState.new()
+	for player_state in player_states:
+		player_state.reset()
 	
-	cards_controller.reset()
-	cards_controller.draw_cards(4)
-	
+	for cards_controller in cards_controllers:
+		cards_controller.reset()
+		cards_controller.draw_cards(4)
+
 	traps_controller.reset()
 	
 	entities_controller.reset()
+
+func player(player_id: int) -> PlayerState:
+	return player_states[player_id]
 
 func set_state(new_state: GameState):
 	state = new_state
@@ -42,22 +58,22 @@ func set_state(new_state: GameState):
 	emit_signal("set_state")
 	
 	if new_state.is_power_phase():
-		player_state.gain_power(player_state.power_per_turn)
+		player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).gain_power(player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).power_per_turn)
 		console.log("Player gains 5 power")
 		
-		cards_controller.draw_cards(1)
+		cards(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).draw_cards(1)
 		
 		go_to_next_phase()
 	
 	if new_state.is_recover():
-		player_state.waste_temporal_power()
-		entities_controller.recover_every_entity()
+		player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).waste_temporal_power()
+		entities_controller.recover_all_entities_controlled_by_player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER)
 		go_to_next_phase()
 
-func play_card_in_hand(card: Card):
-	if state.can_play_cards_in_hand() and player_state.try_spend_power(card.def.power_cost):
-		cards_controller.remove_card_from_hand(card)
-		cards_controller.discard_card(card)
+func play_card_in_hand(player_id: int, card: Card):
+	if state.can_play_cards_in_hand() and player(player_id).try_spend_power(card.def.power_cost):
+		cards(player_id).remove_card_from_hand(card)
+		cards(player_id).discard_card(card)
 		
 		card.def.resolve()
 
@@ -71,14 +87,14 @@ func attack(attacker: EntityInBoard):
 		method = "attack",
 		binds = [attacker]
 	}
-	if not traps_controller.check_trigger_traps(player_state, attacker, callback):
+	if not traps_controller.check_trigger_traps(player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER), attacker, callback):
 		if attacker.life <= 0 or attacker.exhausted:
 			return
 		
 		entities_controller.exhaust(attacker)
 		
 		if attacker.def.attack:
-			player_state.gain_power(1)
+			player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).gain_power(1)
 			console.log(attacker.def.card_name + " attacked; 1 power stolen")
 		else:
 			console.log(attacker.def.card_name + " attacked; couldn't steal power")
@@ -99,7 +115,24 @@ func get_next_phase_state() -> GameState:
 		_:
 			return PowerPhase.new()
 
-func set_trap(card: Card):
-	if state.can_play_cards_in_hand() and player_state.try_spend_power(2):
-		cards_controller.remove_card_from_hand(card)
-		traps_controller.create_trap(card)
+func set_trap(player_id: int, card: Card):
+	if state.can_play_cards_in_hand() and player(player_id).try_spend_power(2):
+		cards(player_id).remove_card_from_hand(card)
+		traps_controller.create_trap(player_id, card)
+
+
+func cards(player_id: int) -> CardsController:
+	return cards_controllers[player_id]
+
+func cards_in_hand(player_id: int) -> Array:
+	return cards(player_id).cards_in_hand
+
+func cards_in_deck(player_id: int) -> Array:
+	return cards(player_id).cards_in_deck
+
+func discard_pile(player_id: int) -> Array:
+	return cards(player_id).discard_pile
+
+func discard_card(player_id: int, card: Card):
+	cards(player_id).discard_card(card)
+

@@ -1,4 +1,5 @@
-extends Node
+class_name EntitiesController
+extends Reference
 
 signal entities_updated()
 signal entity_updated(entity)
@@ -9,13 +10,20 @@ func reset():
 	entities = []
 	emit_signal("entities_updated")
 
-func recover_every_entity():
+func entities_controlled_by_player(player_id: int):
+	var r := []
 	for entity in entities:
+		if entity.controller_player_id == player_id:
+			r.append(entity)
+	return r
+
+func recover_all_entities_controlled_by_player(player_id: int):
+	for entity in entities_controlled_by_player(player_id):
 		entity.exhausted = false
 		update_entity(entity)
 
-func create_entity(cardDef: CardDef): 
-	entities.push_back(EntityInBoard.new(cardDef))
+func create_entity(controller_player_id: int, cardDef: CardDef): 
+	entities.push_back(EntityInBoard.new(controller_player_id, cardDef))
 	emit_signal("entities_updated")
 	
 	console.log(cardDef.card_name + " created")

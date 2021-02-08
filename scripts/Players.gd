@@ -1,6 +1,10 @@
+class_name Players
 extends Node
 
-const P1 = 0
-const P2 = 1
+enum PlayerId {
+	P1 = 0
+	P2 = 1
+}
 
-const EACH = [P1, P2]
+# hardcoded to affec Player 1 while Multiplayer is being implemented
+const HARDCODED_P1_BEFORE_MULTIPLAYER := PlayerId.P1

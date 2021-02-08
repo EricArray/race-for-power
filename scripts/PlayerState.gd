@@ -20,6 +20,25 @@ var temporal_element_lvl := {
 	earth = 0,
 }
 
+func reset():
+	power = 5
+	temporal_power = 0
+	power_per_turn = 5
+
+	element_lvl = {
+		fire = 0,
+		air = 0,
+		water = 0,
+		earth = 0,
+	}
+	temporal_element_lvl = {
+		fire = 0,
+		air = 0,
+		water = 0,
+		earth = 0,
+	}
+
+
 func total_power() -> int:
 	return power + temporal_power
 

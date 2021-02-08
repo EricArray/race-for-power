@@ -15,7 +15,7 @@ func build_description() -> String:
 	return s
 	
 func apply():
-	game.player_state.inc_element_lvl(element, lvl)
+	game.player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).inc_element_lvl(element, lvl)
 
 func undo():
-	game.player_state.dec_element_lvl(element, lvl)
+	game.player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).dec_element_lvl(element, lvl)

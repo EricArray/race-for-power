@@ -10,4 +10,4 @@ func build_description() -> String:
 	return "gain %s power" % power
 
 func resolve():
-	game.player_state.gain_power(power)
+	game.player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).gain_power(power)

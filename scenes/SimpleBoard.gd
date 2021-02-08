@@ -5,11 +5,6 @@ onready var label_turn_phase := $TurnPhase/VBoxContainer/TurnPhase
 onready var log_scroll := $Log/ScrollContainer
 onready var log_container := $Log/ScrollContainer/VBoxContainer
 
-enum Players {
-	P1,
-	P2,
-}
-
 func _ready():
 	game.connect("set_state", self, "_on_Game_set_state")
 	_on_Game_set_state()

@@ -3,14 +3,16 @@ extends PanelContainer
 onready var entities_container := $HBoxContainer/VBoxContainer/EntitiesContainer
 onready var set_traps_container := $HBoxContainer/VBoxContainer2/TrapsContainer
 
+export(Players.PlayerId) var player_id: int
+
 var EntityView = preload("res://scenes/EntityView.tscn")
 var TrapView = preload("res://scenes/TrapView.tscn")
 
 func _ready():
-	entities_controller.connect("entities_updated", self, "_on_Game_set_entities")
+	game.entities_controller.connect("entities_updated", self, "_on_Game_set_entities")
 	_on_Game_set_entities()
 
-	traps_controller.connect("traps_updated", self, "_on_Game_set_traps")
+	game.traps_controller.connect("traps_updated", self, "_on_Game_set_traps")
 	_on_Game_set_traps()
 
 func _on_Game_set_entities():
@@ -18,7 +20,7 @@ func _on_Game_set_entities():
 		entities_container.remove_child(child)
 		child.queue_free()
 
-	for entity in entities_controller.entities:
+	for entity in game.entities_controller.entities_controlled_by_player(player_id):
 		var entity_view = EntityView.instance()
 		entity_view.entity = entity
 		entity_view.connect("mouse_entered", zoom_controller, "zoom_card", [entity_view, entity.def])
@@ -30,7 +32,7 @@ func _on_Game_set_traps():
 		set_traps_container.remove_child(child)
 		child.queue_free()
 
-	for trap in traps_controller.traps:
+	for trap in game.traps_controller.traps_controlled_by_player(player_id):
 		var trap_view = TrapView.instance()
 #		trap_view.trap = trap
 		trap_view.connect("mouse_entered", zoom_controller, "zoom_card", [trap_view, trap.card.def])

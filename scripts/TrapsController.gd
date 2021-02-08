@@ -1,4 +1,5 @@
-extends Node
+class_name TrapsController
+extends Reference
 
 signal traps_updated()
 
@@ -8,9 +9,16 @@ func reset():
 	traps = []
 	emit_signal("traps_updated")
 	
-func create_trap(card: Card):
-	traps.push_back(Trap.new(card))
+func create_trap(controller_player_id: int, card: Card):
+	traps.push_back(Trap.new(controller_player_id, card))
 	emit_signal("traps_updated")
+
+func traps_controlled_by_player(player_id: int):
+	var r := []
+	for trap in traps:
+		if trap.controller_player_id == player_id:
+			r.append(trap)
+	return r
 
 func check_trigger_traps(player_state: PlayerState, target: EntityInBoard, callback: Dictionary) -> bool:
 	for trap in traps:
@@ -20,7 +28,7 @@ func check_trigger_traps(player_state: PlayerState, target: EntityInBoard, callb
 			
 			trap.trigger_on(target, callback)
 			
-			cards_controller.discard_card(trap.card)
+			game.discard_card(Players.HARDCODED_P1_BEFORE_MULTIPLAYER, trap.card)
 			
 			return true
 	return false

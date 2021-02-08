@@ -1,4 +1,5 @@
-extends Node
+class_name CardsController
+extends Reference
 
 signal deck_updated()
 signal hand_updated()

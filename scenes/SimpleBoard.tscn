@@ -66,10 +66,13 @@ player_id = 1
 
 [node name="Log" type="PanelContainer" parent="."]
 visible = false
+anchor_left = 1.0
 anchor_top = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -226.0
-margin_right = 223.0
+margin_left = -223.0
+margin_top = -258.0
+margin_bottom = -32.0
 grow_vertical = 0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -80,11 +83,26 @@ margin_left = 7.0
 margin_top = 7.0
 margin_right = 216.0
 margin_bottom = 219.0
+size_flags_vertical = 3
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Log/ScrollContainer"]
 margin_right = 209.0
 size_flags_horizontal = 3
 
+[node name="ShowLog" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -83.0
+margin_top = -28.0
+toggle_mode = true
+text = "Log"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CardVIew" parent="." instance=ExtResource( 2 )]
 [connection signal="pressed" from="TurnPhase/VBoxContainer/NextPhase" to="." method="_on_NextPhase_pressed"]
+[connection signal="toggled" from="ShowLog" to="." method="_on_ShowLog_toggled"]

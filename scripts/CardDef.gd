@@ -41,19 +41,19 @@ func build_description() -> String:
 	
 	return s
 	
-func resolve():
+func resolve(player_id: int):
 	match card_type:
 		CardType.ENTITY:
-			game.entities_controller.create_entity(Players.HARDCODED_P1_BEFORE_MULTIPLAYER, self)
+			game.entities_controller.create_entity(player_id, self)
 		
 		CardType.INSTANT:
-			resolve_on_play()
+			resolve_on_play(player_id)
 
-func resolve_on_play():
-	on_play.resolve()
+func resolve_on_play(player_id: int):
+	on_play.resolve(player_id)
 	
-func resolve_on_play_with_target(target: EntityInBoard, callback: Dictionary):
-	on_play.resolve_with_target(target, callback)
+func resolve_on_play_with_target(player_id: int, target: EntityInBoard, callback: Callback):
+	on_play.resolve_with_target(player_id, target, callback)
 	
-func resolve_on_destroyed():
-	on_destroyed.resolve()
+func resolve_on_destroyed(player_id):
+	on_destroyed.resolve(player_id)

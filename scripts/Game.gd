@@ -58,16 +58,22 @@ func set_state(new_state: GameState):
 	emit_signal("set_state")
 	
 	if new_state.is_power_phase():
-		player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).gain_power(player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).power_per_turn)
-		console.log("Player gains 5 power")
-		
-		cards(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).draw_cards(1)
+		for player_id in Players.EACH:
+			player(player_id).gain_power(player(player_id).power_per_turn)
+			console.log("{player_name} gains {power_gain} power".format({
+				player_name = Players.name(player_id),
+				power_gain = player(player_id).power_per_turn
+			}))
+			
+			cards(player_id).draw_cards(1)
 		
 		go_to_next_phase()
 	
 	if new_state.is_recover():
-		player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).waste_temporal_power()
-		entities_controller.recover_all_entities_controlled_by_player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER)
+		for player_id in Players.EACH:
+			player(player_id).waste_temporal_power()
+			entities_controller.recover_all_entities_controlled_by_player(player_id)
+		
 		go_to_next_phase()
 
 func play_card_in_hand(player_id: int, card: Card):
@@ -75,26 +81,24 @@ func play_card_in_hand(player_id: int, card: Card):
 		cards(player_id).remove_card_from_hand(card)
 		cards(player_id).discard_card(card)
 		
-		card.def.resolve()
+		card.def.resolve(player_id)
 
 func pick_target(target: EntityInBoard):
 	state.on_target_picked(target)
 
 func attack(attacker: EntityInBoard):
 	# keep triggering traps until the attacker is dead, or no more traps
-	var callback := {
-		target = self,
-		method = "attack",
-		binds = [attacker]
-	}
-	if not traps_controller.check_trigger_traps(player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER), attacker, callback):
+	var opponent := Players.opponent(attacker.controller_player_id)
+	var callback := Callback.new(self, "attack", [attacker])
+	if not traps_controller.check_trigger_traps(opponent, attacker, callback):
 		if attacker.life <= 0 or attacker.exhausted:
 			return
 		
 		entities_controller.exhaust(attacker)
 		
-		if attacker.def.attack:
-			player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).gain_power(1)
+		if attacker.def.attack and player(opponent).power >= 1:
+			player(attacker.controller_player_id).gain_power(1)
+			player(opponent).lose_power(1)
 			console.log(attacker.def.card_name + " attacked; 1 power stolen")
 		else:
 			console.log(attacker.def.card_name + " attacked; couldn't steal power")
@@ -132,6 +136,9 @@ func cards_in_deck(player_id: int) -> Array:
 
 func discard_pile(player_id: int) -> Array:
 	return cards(player_id).discard_pile
+
+func draw_card(player_id: int, n: int):
+	cards(player_id).draw_cards(n)
 
 func discard_card(player_id: int, card: Card):
 	cards(player_id).discard_card(card)

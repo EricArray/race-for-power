@@ -9,5 +9,5 @@ func _init(cards: int):
 func build_description() -> String:
 	return "draw %s cards" % cards
 
-func resolve():
-	game.draw_cards(cards)
+func resolve(player_id: int):
+	game.draw_cards(player_id, cards)

@@ -9,5 +9,5 @@ func _init(power: int):
 func build_description() -> String:
 	return "gain %s power" % power
 
-func resolve():
-	game.player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).gain_power(power)
+func resolve(player_id: int):
+	game.player(player_id).gain_power(power)

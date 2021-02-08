@@ -14,8 +14,8 @@ func build_description() -> String:
 		s += "[img]res://textures/icons/element-icon-" + element + ".png[/img]"
 	return s
 	
-func apply():
-	game.player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).inc_element_lvl(element, lvl)
+func apply(player_id: int):
+	game.player(player_id).inc_element_lvl(element, lvl)
 
-func undo():
-	game.player(Players.HARDCODED_P1_BEFORE_MULTIPLAYER).dec_element_lvl(element, lvl)
+func undo(player_id: int):
+	game.player(player_id).dec_element_lvl(element, lvl)

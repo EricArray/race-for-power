@@ -6,5 +6,18 @@ enum PlayerId {
 	P2 = 1
 }
 
-# hardcoded to affec Player 1 while Multiplayer is being implemented
-const HARDCODED_P1_BEFORE_MULTIPLAYER := PlayerId.P1
+const EACH := [PlayerId.P1, PlayerId.P2]
+
+static func name(player_id: int) -> String:
+	var map := {
+		PlayerId.P1: "Player 1",
+		PlayerId.P2: "Player 2",
+	}
+	return map[player_id]
+
+static func opponent(player_id: int) -> int:
+	var map := {
+		PlayerId.P1: PlayerId.P2,
+		PlayerId.P2: PlayerId.P1,
+	}
+	return map[player_id]

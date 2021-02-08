@@ -16,18 +16,19 @@ func _ready():
 func _on_zoom_card(control: Control, def: CardDef):
 	visible = true
 	
-	var rect := control.get_global_rect()
-	var center := rect.position.x + rect.size.x / 2
-	if center <= get_viewport_rect().size.x:
-		anchor_left = 1
-		anchor_right = 1
-		margin_left = -250
-		margin_right = -50
-	else:
-		anchor_left = 0
-		anchor_right = 0
+	var control_rect := control.get_global_rect()
+	var control_center := control_rect.position.x + control_rect.size.x / 2
+	var viewport_center := get_viewport_rect().size.x / 2
+	if control_center <= viewport_center:
+		anchor_left = 0.5
+		anchor_right = 0.5
 		margin_left = 50
 		margin_right = 250
+	else:
+		anchor_left = 0.5
+		anchor_right = 0.5
+		margin_left = -250
+		margin_right = -50
 		
 	card_view_power_cost.text = str(def.power_cost)
 	card_view_card_name.text = def.card_name

@@ -4,8 +4,8 @@ extends Reference
 func build_description() -> String:
 	return "<INVALID INSTANT EFFECT>"
 
-func resolve():
+func resolve(player_id: int):
 	print("<INVALID INSTANT EFFECT>")
 
-func resolve_with_target(target: EntityInBoard, callback: Dictionary = {}):
-	resolve()
+func resolve_with_target(player_id: int, target: EntityInBoard, callback: Callback = null):
+	resolve(player_id)

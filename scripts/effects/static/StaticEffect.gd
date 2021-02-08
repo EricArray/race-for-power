@@ -4,8 +4,8 @@ extends Reference
 func build_description() -> String:
 	return "<INVALID STATIC EFFECT>"
 
-func apply():
+func apply(player_id: int):
 	print("<INVALID STATIC EFFECT>")
 
-func undo():
+func undo(player_id: int):
 	print("<INVALID STATIC EFFECT>")

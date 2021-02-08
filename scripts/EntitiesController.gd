@@ -22,17 +22,17 @@ func recover_all_entities_controlled_by_player(player_id: int):
 		entity.exhausted = false
 		update_entity(entity)
 
-func create_entity(controller_player_id: int, cardDef: CardDef): 
-	entities.push_back(EntityInBoard.new(controller_player_id, cardDef))
+func create_entity(controller_player_id: int, card_def: CardDef): 
+	entities.push_back(EntityInBoard.new(controller_player_id, card_def))
 	emit_signal("entities_updated")
 	
-	console.log(cardDef.card_name + " created")
+	console.log(card_def.card_name + " created")
 
-	if cardDef.static_effect:
-		cardDef.static_effect.apply()
+	if card_def.static_effect:
+		card_def.static_effect.apply(controller_player_id)
 
-	if cardDef.on_play:
-		cardDef.resolve_on_play()
+	if card_def.on_play:
+		card_def.resolve_on_play(controller_player_id)
 
 func update_entity(entity: EntityInBoard):
 	if entity.life <= 0:
@@ -47,10 +47,10 @@ func destroy_entity(entity: EntityInBoard):
 	console.log(entity.def.card_name + " destroyed")
 	
 	if entity.def.static_effect:
-		entity.def.static_effect.undo()
+		entity.def.static_effect.undo(entity.controller_player_id)
 	
 	if entity.def.on_destroyed:
-		entity.def.resolve_on_destroyed()
+		entity.def.resolve_on_destroyed(entity.controller_player_id)
 
 func exhaust(entity: EntityInBoard):
 	entity.exhausted = true

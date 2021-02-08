@@ -46,6 +46,10 @@ func gain_power(power_gain: int):
 	power += power_gain
 	emit_signal("updated")
 
+func lose_power(power_lost: int):
+	power -= power_lost
+	emit_signal("updated")
+	
 func try_spend_power(power_to_spend: int) -> bool:
 	if total_power() >= power_to_spend:
 		if temporal_power >= power_to_spend:

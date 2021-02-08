@@ -204,6 +204,7 @@ console="*res://scripts/Console.gd"
 card_defs="*res://scripts/CardDefs.gd"
 game="*res://scripts/Game.gd"
 zoom_controller="*res://scripts/ZoomController.gd"
+animations_controller="*res://scripts/AnimationsController.gd"
 
 [gui]
 

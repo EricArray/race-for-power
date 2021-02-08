@@ -1,7 +1,6 @@
 extends Node
 
 signal set_state()
-signal create_animation(animation)
 
 var state: GameState
 

@@ -2,6 +2,8 @@ extends Node
 
 signal set_state()
 
+var attack_animation_scene := preload("res://scenes/animations/Slash.tscn")
+
 var state: GameState
 
 var turn_phase: int
@@ -92,16 +94,27 @@ func attack(attacker: EntityInBoard):
 	if not traps_controller.check_trigger_traps(opponent, attacker, callback):
 		if attacker.life <= 0 or attacker.exhausted:
 			return
+		execute_attack(attacker)
 		
-		entities_controller.exhaust(attacker)
-		
-		if attacker.def.attack and player(opponent).power >= 1:
-			player(attacker.controller_player_id).gain_power(1)
-			player(opponent).lose_power(1)
-			console.log(attacker.def.card_name + " attacked; 1 power stolen")
-		else:
-			console.log(attacker.def.card_name + " attacked; couldn't steal power")
+func execute_attack(attacker: EntityInBoard):
+	animations_controller.play_animation(
+		attack_animation_scene,
+		Callback.new(self, "apply_attack_effect", [attacker])
+	)
 
+func apply_attack_effect(attacker: EntityInBoard):
+	var opponent := Players.opponent(attacker.controller_player_id)
+	
+	entities_controller.exhaust(attacker)
+	
+	if attacker.def.attack and player(opponent).power >= 1:
+		player(attacker.controller_player_id).gain_power(1)
+		player(opponent).lose_power(1)
+		console.log(attacker.def.card_name + " attacked; 1 power stolen")
+	else:
+		console.log(attacker.def.card_name + " attacked; couldn't steal power")
+
+	
 func go_to_next_phase():
 	set_state(get_next_phase_state())
 

@@ -10,15 +10,13 @@
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 6 ) ],
-"loop": true,
+"loop": false,
 "name": "default",
-"speed": 24.0
+"speed": 32.0
 } ]
 
 [node name="Slash" type="AnimatedSprite"]
 position = Vector2( 453.997, 225.411 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 1 )
-frame = 4
-playing = true
 centered = false

@@ -16,7 +16,5 @@ animations = [ {
 } ]
 
 [node name="Slash" type="AnimatedSprite"]
-position = Vector2( 453.997, 225.411 )
 scale = Vector2( 4, 4 )
 frames = SubResource( 1 )
-centered = false

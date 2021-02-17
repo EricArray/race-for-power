@@ -19,6 +19,7 @@ func _on_target_picked(target: EntityInBoard, player_id: int):
 func resolve_with_target(player_id, target: EntityInBoard, callback: Callback = null):
 	animations_controller.play_animation(
 		animation_scene,
+		target.control,
 		Callback.new(self, "_on_animation_finished", [target, callback])
 	)
 	

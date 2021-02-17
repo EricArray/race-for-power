@@ -26,6 +26,8 @@ func _on_Game_set_entities():
 		entity_view.connect("mouse_entered", zoom_controller, "zoom_card", [entity_view, entity.def])
 		entity_view.connect("mouse_exited", zoom_controller, "hide_zoom_card")
 		entities_container.add_child(entity_view)
+		
+		entity.control = entity_view
 
 func _on_Game_set_traps():
 	for child in set_traps_container.get_children():

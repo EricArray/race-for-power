@@ -99,6 +99,7 @@ func attack(attacker: EntityInBoard):
 func execute_attack(attacker: EntityInBoard):
 	animations_controller.play_animation(
 		attack_animation_scene,
+		attacker.control,
 		Callback.new(self, "apply_attack_effect", [attacker])
 	)
 

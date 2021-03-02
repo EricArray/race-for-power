@@ -14,8 +14,8 @@ var player_states := [
 ]
 
 var cards_controllers := [
-	CardsController.new(),
-	CardsController.new(),
+	CardsController.new(Players.PlayerId.P1),
+	CardsController.new(Players.PlayerId.P2),
 ]
 
 var entities_controller := EntitiesController.new()
@@ -80,9 +80,8 @@ func set_state(new_state: GameState):
 func play_card_in_hand(player_id: int, card: Card):
 	if state.can_play_cards_in_hand() and player(player_id).try_spend_power(card.def.power_cost):
 		cards(player_id).remove_card_from_hand(card)
-		cards(player_id).discard_card(card)
 		
-		card.def.resolve(player_id)
+		card.def.resolve(player_id, card)
 
 func pick_target(target: EntityInBoard):
 	state.on_target_picked(target)

@@ -41,10 +41,10 @@ func build_description() -> String:
 	
 	return s
 	
-func resolve(player_id: int):
+func resolve(player_id: int, card):
 	match card_type:
 		CardType.ENTITY:
-			game.entities_controller.create_entity(player_id, self)
+			game.entities_controller.create_entity(player_id, card)
 		
 		CardType.INSTANT:
 			resolve_on_play(player_id)
@@ -52,7 +52,7 @@ func resolve(player_id: int):
 func resolve_on_play(player_id: int):
 	on_play.resolve(player_id)
 	
-func resolve_on_play_with_target(player_id: int, target: EntityInBoard, callback: Callback):
+func resolve_on_play_with_target(player_id: int, target, callback: Callback):
 	on_play.resolve_with_target(player_id, target, callback)
 	
 func resolve_on_destroyed(player_id):

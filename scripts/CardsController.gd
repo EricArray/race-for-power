@@ -5,34 +5,46 @@ signal deck_updated()
 signal hand_updated()
 signal discard_pile_updated()
 
+var fire_deck_defs := [
+	card_defs.warlock,
+	card_defs.warlock,
+#	card_defs.warlock,
+#	card_defs.warlock,
+#	card_defs.warlock,
+#	card_defs.imp,
+#	card_defs.imp,
+#	card_defs.imp,
+#	card_defs.surge_of_power,
+	card_defs.fireball,
+	card_defs.fireball,
+#	card_defs.firestorm,
+]
+
+var water_deck_defs := [
+#	card_defs.polliwog,
+#	card_defs.polliwog,
+#	card_defs.polliwog,
+#	card_defs.hydrothermal_vents,
+#	card_defs.hydrothermal_vents,
+#	card_defs.blue_dragon,
+#	card_defs.blue_dragon,
+#	card_defs.freeze,
+#	card_defs.exploration,
+]
+
+var player_id: int
 var cards_in_deck: Array = []
 var cards_in_hand: Array = []
 var discard_pile: Array = []
 
+func _init(player_id: int):
+	self.player_id = player_id
+
 func reset():
-	cards_in_deck = [
-		Card.new(card_defs.warlock),
-		Card.new(card_defs.warlock),
-#		Card.new(card_defs.warlock),
-#		Card.new(card_defs.warlock),
-#		Card.new(card_defs.warlock),
-#		Card.new(card_defs.imp),
-#		Card.new(card_defs.imp),
-#		Card.new(card_defs.imp),
-#		Card.new(card_defs.surge_of_power),
-		Card.new(card_defs.fireball),
-		Card.new(card_defs.fireball),
-#		Card.new(card_defs.firestorm),
-#		Card.new(card_defs.polliwog),
-#		Card.new(card_defs.polliwog),
-#		Card.new(card_defs.polliwog),
-#		Card.new(card_defs.hydrothermal_vents),
-#		Card.new(card_defs.hydrothermal_vents),
-#		Card.new(card_defs.blue_dragon),
-#		Card.new(card_defs.blue_dragon),
-#		Card.new(card_defs.freeze),
-#		Card.new(card_defs.exploration),
-	]
+	cards_in_deck = []
+	for card_def in fire_deck_defs:
+		cards_in_deck.append(Card.new(player_id, card_def))
+	
 	cards_in_deck.shuffle()
 	emit_signal("deck_updated")
 	

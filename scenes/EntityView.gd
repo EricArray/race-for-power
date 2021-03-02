@@ -21,9 +21,9 @@ func _on_Game_update_entity(updated_entity: EntityInBoard):
 		update_buttons()
 
 func update():
-	picture.texture = load("res://textures/pictures/" + str(entity.def.card_name) + ".png")
+	picture.texture = load("res://textures/pictures/" + str(entity.card.def.card_name) + ".png")
 	life.text = str(entity.life)
-	power.text = str(entity.def.attack)
+	power.text = str(entity.card.def.attack)
 	if entity.exhausted:
 		rect_rotation = 90
 	else:

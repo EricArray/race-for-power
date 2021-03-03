@@ -2,6 +2,8 @@ class_name EntitiesController
 extends Reference
 
 signal entities_updated()
+signal add_entity(entity)
+signal remove_entity(entity)
 signal entity_updated(entity)
 
 var entities: Array = []
@@ -23,8 +25,9 @@ func recover_all_entities_controlled_by_player(player_id: int):
 		update_entity(entity)
 
 func create_entity(controller_player_id: int, card: Card): 
-	entities.push_back(EntityInBoard.new(controller_player_id, card))
-	emit_signal("entities_updated")
+	var new_entity = EntityInBoard.new(controller_player_id, card)
+	entities.push_back(new_entity)
+	emit_signal("add_entity", new_entity)
 	
 	console.log(card.def.card_name + " created")
 
@@ -42,7 +45,7 @@ func update_entity(entity: EntityInBoard):
 
 func destroy_entity(entity: EntityInBoard):
 	entities.erase(entity)
-	emit_signal("entities_updated")
+	emit_signal("remove_entity", entity)
 	
 	game.discard_card(entity.card.owner_player_id, entity.card)
 	

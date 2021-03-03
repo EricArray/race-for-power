@@ -87,7 +87,11 @@ func attack(attacker: EntityInBoard):
 		if attacker.life <= 0 or attacker.exhausted:
 			return
 		execute_attack(attacker)
-		
+
+func activate(entity: EntityInBoard):
+	entities_controller.exhaust(entity)
+	entity.card.def.on_activate.resolve(entity.controller_player_id)
+
 func execute_attack(attacker: EntityInBoard):
 	animations_controller.play_animation(
 		attack_animation_scene,

@@ -23,6 +23,7 @@ var life: int
 
 var on_play: InstantEffect
 var on_destroyed: InstantEffect
+var on_activate: InstantEffect
 var static_effect: StaticEffect
 
 func build_description() -> String:
@@ -33,6 +34,9 @@ func build_description() -> String:
 	
 	if on_play:
 		s += "[b]Play:[/b] " + on_play.build_description() + ".\n"
+	
+	if on_activate:
+		s += "[b]Activate:[/b] " + on_activate.build_description() + ".\n"
 	
 	if on_destroyed:
 		s += "[b]Destroyed:[/b] " + on_destroyed.build_description() + ".\n"
@@ -51,7 +55,7 @@ func resolve(player_id: int, card):
 
 func resolve_on_play(player_id: int):
 	on_play.resolve(player_id)
-	
+
 func resolve_on_play_with_target(player_id: int, target, callback: Callback):
 	on_play.resolve_with_target(player_id, target, callback)
 	

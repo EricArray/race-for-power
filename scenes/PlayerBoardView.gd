@@ -18,6 +18,9 @@ func _ready():
 	game.entities_controller.connect("entities_updated", self, "_on_Game_set_entities")
 	_on_Game_set_entities()
 
+	game.entities_controller.connect("add_entity", self, "_on_Game_add_entity")
+	game.entities_controller.connect("remove_entity", self, "_on_Game_remove_entity")
+
 	game.traps_controller.connect("traps_updated", self, "_on_Game_set_traps")
 	_on_Game_set_traps()
 
@@ -31,14 +34,27 @@ func _on_Game_set_entities():
 		child.queue_free()
 
 	for entity in game.entities_controller.entities_controlled_by_player(player_id):
-		var entity_view = EntityView.instance()
-		entity_view.entity = entity
-		entity_view.connect("mouse_entered", zoom_controller, "zoom_card", [entity_view, entity.def])
-		entity_view.connect("mouse_exited", zoom_controller, "hide_zoom_card")
-		entities_container.add_child(entity_view)
-		
-		entity.control = entity_view
+		add_entity_view_child(entity)
 
+func _on_Game_add_entity(entity):
+	if entity.controller_player_id == player_id:
+		add_entity_view_child(entity)
+	
+func _on_Game_remove_entity(entity):
+	for child in entities_container.get_children():
+		if child.entity == entity:
+			entities_container.remove_child(child)
+			child.queue_free()
+
+func add_entity_view_child(entity):
+	var entity_view = EntityView.instance()
+	entity_view.entity = entity
+	entity_view.connect("mouse_entered", zoom_controller, "zoom_card", [entity_view, entity.def])
+	entity_view.connect("mouse_exited", zoom_controller, "hide_zoom_card")
+	entities_container.add_child(entity_view)
+	
+	entity.control = entity_view
+	
 func _on_Game_set_traps():
 	for child in set_traps_container.get_children():
 		set_traps_container.remove_child(child)

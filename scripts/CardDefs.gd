@@ -101,6 +101,7 @@ func load_blue_dragon() -> CardDef:
 	def.power_cost = 4
 	def.life = 4
 	def.attack = 4
+	def.on_activate = Target.new(DealDamage.new(3))
 	return def
 
 func load_freeze() -> CardDef:

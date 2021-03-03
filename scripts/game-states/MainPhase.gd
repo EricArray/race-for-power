@@ -9,3 +9,6 @@ func can_go_to_next_phase() -> bool:
 
 func can_play_cards_in_hand() -> bool:
 	return true
+
+func can_activate() -> bool:
+	return true

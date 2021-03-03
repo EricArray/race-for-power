@@ -13,6 +13,9 @@ func can_play_cards_in_hand() -> bool:
 func can_attack() -> bool:
 	return false
 
+func can_activate() -> bool:
+	return false
+
 func can_pick_target() -> bool:
 	return false
 

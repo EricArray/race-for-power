@@ -21,13 +21,13 @@ var fire_deck_defs := [
 ]
 
 var water_deck_defs := [
-#	card_defs.polliwog,
-#	card_defs.polliwog,
+	card_defs.polliwog,
+	card_defs.polliwog,
 #	card_defs.polliwog,
 #	card_defs.hydrothermal_vents,
 #	card_defs.hydrothermal_vents,
-#	card_defs.blue_dragon,
-#	card_defs.blue_dragon,
+	card_defs.blue_dragon,
+	card_defs.blue_dragon,
 #	card_defs.freeze,
 #	card_defs.exploration,
 ]
@@ -41,8 +41,13 @@ func _init(player_id: int):
 	self.player_id = player_id
 
 func reset():
+	var deck_defs := {
+		Players.PlayerId.P1: fire_deck_defs,
+		Players.PlayerId.P2: water_deck_defs,
+	}
+	
 	cards_in_deck = []
-	for card_def in fire_deck_defs:
+	for card_def in deck_defs[player_id]:
 		cards_in_deck.append(Card.new(player_id, card_def))
 	
 	cards_in_deck.shuffle()

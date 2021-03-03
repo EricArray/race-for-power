@@ -15,3 +15,9 @@ func _init(controller_player_id: int, card):
 	self.life = card.def.life
 	self.exhausted = false
 	self.control = null
+
+func can_attack() -> bool:
+	return not exhausted
+
+func can_activate() -> bool:
+	return not exhausted and card.def.on_activate

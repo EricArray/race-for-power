@@ -8,6 +8,9 @@ onready var player_elements := $VBoxContainer2/PlayerElements
 
 export(Players.PlayerId) var player_id: int
 
+const COLOR_CAN_PLAY := Color("#00ff1e")
+const COLOR_CAN_NOT_PLAY := Color("#FFFFFF")
+
 var element_textures := {
 	fire = preload("res://textures/icons/element-icon-fire.png"),
 	air = preload("res://textures/icons/element-icon-air.png"),
@@ -32,9 +35,18 @@ func _ready():
 	_on_Game_player_state_updated()
 
 func can_play_card(card: Card):
-	return game.player(player_id).can_play(card.def) and game.state.can_play_cards_in_hand()
+	return (
+		game.player(player_id).can_play(card.def) and
+		game.state().can_play_cards_in_hand() and
+		game.turn_player_id == player_id
+	)
 
 func _on_Game_set_state():
+	var can_play_cards = (
+		game.state().can_play_cards_in_hand() and
+		game.turn_player_id == player_id
+	)
+	self_modulate = COLOR_CAN_PLAY if can_play_cards else COLOR_CAN_NOT_PLAY
 	for i in cards_container.get_child_count():
 		var card_button = cards_container.get_child(i)
 		var card = game.cards_in_hand(player_id)[i]
@@ -76,14 +88,14 @@ func _on_Game_set_hand():
 	rect_size.y = 0
 
 func _on_play_card(card: Card):
-	if game.state.can_play_cards_in_hand():
+	if game.state().can_play_cards_in_hand():
 		zoom_controller.hide_zoom_card()
 		game.play_card_in_hand(player_id, card)
 
 func _on_card_in_hand_gui_input(event: InputEvent, card: Card):
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_RIGHT and event.pressed == false:
-			if  game.state.can_play_cards_in_hand():
+			if  game.state().can_play_cards_in_hand():
 				zoom_controller.hide_zoom_card()
 				game.set_trap(player_id, card)
 

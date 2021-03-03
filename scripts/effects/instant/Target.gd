@@ -11,9 +11,10 @@ func build_description() -> String:
 	return on_target.build_description() + " target entity"
 
 func resolve(player_id: int):
-	game.set_state(PickTarget.new(Callback.new(self, "_on_target_picked", [player_id])))
+	game.push_state(PickTarget.new(Callback.new(self, "_on_target_picked", [player_id])))
 
 func _on_target_picked(target: EntityInBoard, player_id: int):
+	game.pop_state()
 	resolve_with_target(player_id, target)
 
 func resolve_with_target(player_id, target: EntityInBoard, callback: Callback = null):
@@ -27,4 +28,3 @@ func _on_animation_finished(target: EntityInBoard, callback: Callback):
 	on_target.on_target(target)
 	if callback:
 		callback.callback()
-	game.set_state(MainPhase.new())

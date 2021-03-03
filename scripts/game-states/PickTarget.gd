@@ -6,6 +6,9 @@ var callback: Callback
 func _init(callback: Callback):
 	self.callback = callback
 
+func name() -> String:
+	return "Pick target"
+
 func can_pick_target() -> bool:
 	return true
 

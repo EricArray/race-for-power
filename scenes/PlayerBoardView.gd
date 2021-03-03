@@ -5,16 +5,26 @@ onready var set_traps_container := $HBoxContainer/VBoxContainer2/TrapsContainer
 
 export(Players.PlayerId) var player_id: int
 
+const COLOR_CAN_ATTACK := Color("#00ff1e")
+const COLOR_CAN_NOT_ATTACK := Color("#FFFFFF")
+
 var EntityView = preload("res://scenes/EntityView.tscn")
 var TrapView = preload("res://scenes/TrapView.tscn")
 
 func _ready():
+	game.connect("set_state", self, "_on_Game_set_state")
+	_on_Game_set_state()
+	
 	game.entities_controller.connect("entities_updated", self, "_on_Game_set_entities")
 	_on_Game_set_entities()
 
 	game.traps_controller.connect("traps_updated", self, "_on_Game_set_traps")
 	_on_Game_set_traps()
 
+func _on_Game_set_state():
+	var can_attack = game.state().can_attack() and game.turn_player_id == player_id
+	self_modulate = COLOR_CAN_ATTACK if can_attack else COLOR_CAN_NOT_ATTACK
+	
 func _on_Game_set_entities():
 	for child in entities_container.get_children():
 		entities_container.remove_child(child)

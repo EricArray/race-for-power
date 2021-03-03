@@ -1,8 +1,8 @@
 class_name GameState
 extends Reference
 
-func turn_phase():
-	return null
+func name() -> String:
+	return "<INVALID GAME STATE>"
 
 func can_go_to_next_phase() -> bool:
 	return false
@@ -19,8 +19,5 @@ func can_pick_target() -> bool:
 func on_target_picked(target: EntityInBoard):
 	pass
 
-func is_power_phase() -> bool:
-	return false
-
-func is_recover() -> bool:
-	return false
+func on_start():
+	pass

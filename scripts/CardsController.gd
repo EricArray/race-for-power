@@ -53,9 +53,12 @@ func reset():
 	
 	discard_pile = []
 	emit_signal("discard_pile_updated")
-	
+
 func draw_cards(cards: int):
-	console.log("Player draws " + str(cards) + " cards")
+	console.log("{player_name} draws {cards} cards".format({
+		player_name = Players.name(player_id),
+		cards = cards,
+	}))
 	
 	for i in range(cards):
 		if cards_in_deck.size() > 0:
